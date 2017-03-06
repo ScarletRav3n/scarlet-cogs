@@ -2,8 +2,7 @@
 import discord
 from discord.ext import commands
 from cogs.utils import checks
-from random import randint
-from random import choice
+import random
 
 __author__ = "ScarletRav3n"
 
@@ -21,7 +20,7 @@ class Fun:
     @checks.admin_or_permissions(administrator=True)
     async def fun(self, on_off: str):
         """Toggle counting for fun-based commands"""
-        if on_off is True:
+        if on_off == "on":
             await self.bot.say('Counting counter is now ON.')
             self.toggle = True
         else:
@@ -40,13 +39,14 @@ class Fun:
         if user.id == self.bot.user.id:
             await self.bot.say("I'm not the fighting kind" + count)
         else:
-            await self.bot.say(author.mention + " and " + user.mention + " dueled for " + str(randint(2, 120)) +
+            await self.bot.say(author.mention + " and " + user.mention + " dueled for " + str(random.randint(2, 120)) +
                                " gruesome hours! It was a long, heated battle, but " +
-                               choice([author.mention, user.mention]) + " came out victorious!" + count)
+                               random.choice([author.mention, user.mention]) + " came out victorious!" + count)
 
     @commands.command(pass_context=True)
     async def love(self, ctx, user: discord.Member):
         """Found your one true love?"""
+        random.seed(ctx.message.author.id+user.id)
         author = ctx.message.author
         self.nlove += 1
         if self.toggle is True:
@@ -57,7 +57,7 @@ class Fun:
             await self.bot.say("I am not capable of loving like you can. I'm sorry." + count)
         else:
             await self.bot.say(author.mention + " is capable of loving " + user.mention + " a whopping " +
-                               str(randint(0, 100)) + "%!" + count)
+                               str(random.randint(0, 100)) + "%!" + count)
 
     @commands.command(pass_context=True)
     async def squat(self, ctx):
@@ -68,8 +68,8 @@ class Fun:
             count = "\n*This command has been used " + str(self.nsquat) + " times.*"
         else:
             count = ""
-        await self.bot.say(author.mention + " puts on their game face and does " + str(randint(2, 1000)) +
-                           " squats in " + str(randint(4, 90)) + " minutes. Wurk it!" + count)
+        await self.bot.say(author.mention + " puts on their game face and does " + str(random.randint(2, 1000)) +
+                           " squats in " + str(random.randint(4, 90)) + " minutes. Wurk it!" + count)
 
     @commands.command(pass_context=True)
     async def pizza(self, ctx):
@@ -80,7 +80,8 @@ class Fun:
             count = "\n*This command has been used " + str(self.npizza) + " times.*"
         else:
             count = ""
-        await self.bot.say(author.mention + " has eaten " + str(randint(2, 120)) + " slices of pizza today." + count)
+        await self.bot.say(author.mention + " has eaten " + str(random.randint(2, 120)) + " slices of pizza today."
+                           + count)
 
     @commands.command(pass_context=True)
     async def bribe(self, ctx):
@@ -92,7 +93,7 @@ class Fun:
         else:
             count = ""
         await self.bot.say(author.mention + " has bribed " + self.bot.user.mention + " with " +
-                           str(randint(10, 10000)) + " dollars!" + count)
+                           str(random.randint(10, 10000)) + " dollars!" + count)
 
     @commands.command(pass_context=True)
     async def daddy(self, ctx):
@@ -106,12 +107,12 @@ class Fun:
 
     @commands.command()
     async def calculated(self):
-        self.ndad += ndad
+        self.ndad += 1
         if self.toggle is True:
             count = "\n*This command has been used " + str(self.ndad) + " times.*"
         else:
             count = ""
-        await self.bot.say("That was " + str(randint(0, 100)) + "% calculated!" + count)
+        await self.bot.say("That was " + str(random.randint(0, 100)) + "% calculated!" + count)
 
     @commands.command()
     async def butts(self):
