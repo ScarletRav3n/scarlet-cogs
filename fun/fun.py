@@ -18,9 +18,9 @@ class Fun:
 
     @commands.command()
     @checks.admin_or_permissions(administrator=True)
-    async def fun(self, on_off: str):
+    async def fun(self, on_off: bool):
         """Toggle counting for fun-based commands"""
-        if on_off == "on":
+        if on_off is True:
             await self.bot.say('Counting counter is now ON.')
             self.toggle = True
         else:
